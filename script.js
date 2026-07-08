@@ -20,22 +20,26 @@ const scoreText = document.querySelector("#score");
 const streakText = document.querySelector("#streak");
 
 
-// LOAD DATA
+// LOAD DATA FROM teams.js
 
-async function loadTeams(){
+function loadTeams(){
 
-    try{
+    if(typeof teams === "undefined"){
 
-        const response = await fetch("teams.json");
+        console.error("teams.js failed to load");
 
-        teams = await response.json();
+        alert("Could not load teams.js");
 
-        remainingTeams = [...teams];
-
-        startGame();
+        return;
 
     }
 
+
+    remainingTeams = [...teams];
+
+    startGame();
+
+}
     catch(error){
 
         console.error(error);
