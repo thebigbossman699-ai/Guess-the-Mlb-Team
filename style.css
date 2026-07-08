@@ -1,503 +1,307 @@
-/* ===========================
-   RESET
-=========================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-    background:#07153d;
-    color:#fff;
+body {
+    background: #06152d;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* ===========================
-   HEADER
-=========================== */
-
-.banner{
-
-    height:190px;
-
-    background:linear-gradient(90deg,#07153d,#102d75,#07153d);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:25px;
-
-    border-bottom:4px solid white;
-
+.game-container {
+    width: 95%;
+    max-width: 900px;
+    text-align: center;
+    padding: 20px;
 }
 
-.logo{
+/* HEADER */
 
-    font-size:70px;
-
+h1 {
+    font-size: 3rem;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    color: #ffffff;
 }
 
-.banner h1{
 
-    font-size:90px;
+/* SCORE */
 
-    line-height:.9;
-
-    font-weight:900;
-
-    letter-spacing:-3px;
-
+.score-board {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
 }
 
-.banner h2{
 
-    text-align:center;
+/* BASEBALL FIELD */
 
-    margin-top:10px;
-
-    font-size:28px;
-
+.field {
+    position: relative;
+    width: 520px;
+    height: 520px;
+    margin: auto;
+    background: #16723b;
+    border-radius: 20px;
+    border: 5px solid white;
+    overflow: hidden;
 }
 
-/* ===========================
-   SCOREBOARD
-=========================== */
 
-.stats{
+/* DIAMOND */
 
-    display:flex;
-
-    justify-content:center;
-
-    gap:25px;
-
-    padding:25px;
-
-    flex-wrap:wrap;
-
+.diamond {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background: #c9a66b;
+    transform: rotate(45deg);
+    top: 120px;
+    left: 120px;
+    border: 4px solid white;
 }
 
-.stat{
 
-    width:160px;
+/* POSITION CARDS */
 
-    background:#111;
-
-    border:3px solid white;
-
-    border-radius:10px;
-
-    text-align:center;
-
-    padding:12px;
-
+.player-card {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: #111827;
+    border: 3px solid white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
 }
 
-.stat h3{
 
-    font-size:18px;
-
+.player-card:hover {
+    transform: scale(1.08);
+    background: #1e3a8a;
 }
 
-.stat p{
 
-    font-size:32px;
-
-    font-weight:bold;
-
-    margin-top:5px;
-
+.number {
+    font-size: 2.3rem;
+    font-weight: bold;
 }
 
-/* ===========================
-   FIELD
-=========================== */
 
-.field{
-
-    width:1000px;
-
-    height:950px;
-
-    margin:25px auto;
-
-    position:relative;
-
-    background:#08184b;
-
-    overflow:hidden;
-
+.position {
+    font-size: .9rem;
+    opacity: .8;
 }
 
-/* subtle stripes */
 
-.field::before{
+/* FIELD POSITIONS */
 
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,.02) 0px,
-        rgba(255,255,255,.02) 18px,
-        transparent 18px,
-        transparent 36px
-    );
-
+.LF {
+    top: 30px;
+    left: 40px;
 }
 
-/* baseball diamond */
-
-.field::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:430px;
-
-    height:430px;
-
-    border:12px solid white;
-
-    transform:rotate(45deg);
-
-    left:285px;
-
-    top:290px;
-
-    box-shadow:0 0 0 6px rgba(255,255,255,.25);
-
+.CF {
+    top: 15px;
+    left: 215px;
 }
 
-/* ===========================
-   PLAYER BOXES
-=========================== */
-
-.card{
-
-    position:absolute;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    z-index:2;
-
+.RF {
+    top: 30px;
+    right: 40px;
 }
 
-.card label{
-
-    font-size:26px;
-
-    font-weight:bold;
-
-    margin-bottom:6px;
-
+.3B {
+    bottom: 90px;
+    left: 80px;
 }
 
-.card div{
-
-    width:170px;
-
-    height:170px;
-
-    background:radial-gradient(circle,#6b6b6b,#111);
-
-    border:4px solid white;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:70px;
-
-    font-weight:bold;
-
-    color:white;
-
+.SS {
+    bottom: 150px;
+    left: 170px;
 }
 
-/* ===========================
-   POSITIONS
-=========================== */
+.2B {
+    bottom: 150px;
+    right: 170px;
+}
 
-.cf{
+.1B {
+    bottom: 90px;
+    right: 80px;
+}
 
-    top:40px;
-    left:415px;
+.C {
+    bottom: 20px;
+    left: 215px;
+}
+
+.DH {
+    bottom: 90px;
+    left: 215px;
+}
+
+.ACE {
+    top: 210px;
+    left: 215px;
+}
+
+
+
+/* TEAM BOX */
+
+.team-box {
+    margin: 25px auto;
+    width: 250px;
+    height: 90px;
+    background: #111827;
+    border: 3px solid white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+
+/* INPUT AREA */
+
+.controls {
+    margin-top: 20px;
+}
+
+
+input {
+    width: 250px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: none;
+}
+
+
+button {
+    padding: 12px 25px;
+    margin: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: #06152d;
+    transition: .2s;
+}
+
+
+button:hover {
+    transform: scale(1.05);
+    background: #38bdf8;
+}
+
+
+/* REVEAL ANIMATION */
+
+.reveal {
+    animation: reveal .5s ease;
+}
+
+
+@keyframes reveal {
+
+    from {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 
 }
 
-.lf{
 
-    top:160px;
-    left:50px;
+/* GAME OVER */
 
+.game-over {
+    font-size: 2rem;
+    margin-top: 20px;
 }
 
-.rf{
 
-    top:160px;
-    right:50px;
+/* MOBILE */
 
-}
+@media(max-width:600px){
 
-.ss{
+    h1 {
+        font-size: 2rem;
+    }
 
-    top:420px;
-    left:245px;
 
-}
+    .field {
+        width: 330px;
+        height: 330px;
+    }
 
-.second{
 
-    top:420px;
-    right:245px;
+    .diamond {
+        width: 170px;
+        height: 170px;
+        top:80px;
+        left:80px;
+    }
 
-}
 
-.third{
+    .player-card {
+        width:60px;
+        height:60px;
+    }
 
-    top:650px;
-    left:65px;
 
-}
+    .number {
+        font-size:1.5rem;
+    }
 
-.first{
 
-    top:650px;
-    right:65px;
+    .position {
+        font-size:.65rem;
+    }
 
-}
 
-.ace{
+    .CF,
+    .C,
+    .DH,
+    .ACE {
+        left:135px;
+    }
 
-    top:660px;
-    left:415px;
 
-}
+    .SS {
+        left:100px;
+    }
 
-.catcher{
 
-    bottom:20px;
-    left:415px;
+    .2B {
+        right:100px;
+    }
 
-}
 
-.dh{
-
-    bottom:20px;
-    left:60px;
-
-}
-
-.team{
-
-    bottom:20px;
-    right:60px;
-
-}
-
-/* ===========================
-   CONTROLS
-=========================== */
-
-.controls{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:10px;
-
-    margin-top:30px;
-
-}
-
-.controls input{
-
-    width:420px;
-
-    padding:16px;
-
-    font-size:22px;
-
-    border-radius:8px;
-
-    border:none;
-
-}
-
-.controls button{
-
-    padding:16px 28px;
-
-    font-size:20px;
-
-    background:#0d6efd;
-
-    color:white;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-/* ===========================
-   BUTTON ROW
-=========================== */
-
-.buttons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:15px;
-
-    margin:25px;
-
-}
-
-.buttons button{
-
-    padding:14px 28px;
-
-    font-size:20px;
-
-    background:#222;
-
-    color:white;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-}
-
-button:hover{
-
-    opacity:.85;
-
-}
-
-/* ===========================
-   MESSAGE
-=========================== */
-
-#message{
-
-    text-align:center;
-
-    font-size:34px;
-
-    font-weight:bold;
-
-    min-height:50px;
-
-}
-
-/* ===========================
-   PLAYER LIST
-=========================== */
-
-.players{
-
-    width:900px;
-
-    margin:30px auto 60px;
-
-    background:#111;
-
-    border:3px solid white;
-
-    border-radius:10px;
-
-    padding:20px;
-
-}
-
-.players h2{
-
-    text-align:center;
-
-    margin-bottom:15px;
-
-}
-
-#playerList{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:10px;
-
-    font-size:20px;
-
-}
-
-/* ===========================
-   MOBILE
-=========================== */
-
-@media(max-width:1100px){
-
-.field{
-
-    width:100%;
-    height:900px;
-
-}
-
-.banner h1{
-
-    font-size:56px;
-
-}
-
-.banner h2{
-
-    font-size:18px;
-
-}
-
-.card div{
-
-    width:110px;
-    height:110px;
-    font-size:42px;
-
-}
-
-.card label{
-
-    font-size:20px;
-
-}
-
-.players{
-
-    width:95%;
-
-}
+    input {
+        width:90%;
+    }
 
 }
