@@ -1,218 +1,295 @@
-let currentTeam;
+let teams = [];
+let remainingTeams = [];
+
+let currentTeam = null;
 let score = 0;
-let attempts = 0;
-let correct = 0;
-let progress = 0;
-let timer;
-let timeLeft = 60;
+let streak = 0;
+let gamesPlayed = 0;
 
-const positions = [
-    "CF",
-    "LF",
-    "RF",
-    "SS",
-    "2B",
-    "3B",
-    "1B",
-    "P",
-    "C",
-    "DH"
-];
 
-function randomTeam() {
-    currentTeam = teams[Math.floor(Math.random() * teams.length)];
+// HTML ELEMENTS
+
+const cards = document.querySelectorAll(".player-card");
+const teamBox = document.querySelector(".team-box");
+const guessInput = document.querySelector("#guess");
+const submitBtn = document.querySelector("#submit");
+const nextBtn = document.querySelector("#next");
+const skipBtn = document.querySelector("#skip");
+
+const scoreText = document.querySelector("#score");
+const streakText = document.querySelector("#streak");
+
+
+// LOAD DATA
+
+async function loadTeams(){
+
+    try{
+
+        const response = await fetch("teams.json");
+
+        teams = await response.json();
+
+        remainingTeams = [...teams];
+
+        startGame();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Failed to load teams.json");
+
+    }
+
 }
 
-function clearField() {
 
-    positions.forEach(pos => {
 
-        document.getElementById(pos).textContent = "?";
+// START GAME
 
-    });
+function startGame(){
 
-    document.getElementById("teamBox").textContent = "?";
-    document.getElementById("playerList").innerHTML = "";
-    document.getElementById("message").textContent = "";
-    document.getElementById("guessInput").value = "";
+    if(remainingTeams.length === 0){
+
+        gameOver();
+
+        return;
+
+    }
+
+
+    const randomIndex = Math.floor(
+        Math.random() * remainingTeams.length
+    );
+
+
+    currentTeam = remainingTeams[randomIndex];
+
+
+    remainingTeams.splice(randomIndex,1);
+
+
+    displayPlayers();
+
+    teamBox.textContent = "?";
+
+    guessInput.value = "";
 
 }
 
-function loadTeam() {
 
-    clearInterval(timer);
 
-    timeLeft = 60;
+// DISPLAY JERSEY NUMBERS
 
-    document.getElementById("timer").textContent = timeLeft;
+function displayPlayers(){
 
-    randomTeam();
+    cards.forEach(card=>{
 
-    clearField();
+        const position = card.dataset.position;
 
-    currentTeam.players.forEach(player => {
+        const player = currentTeam.players.find(
+            p => p.position === position
+        );
 
-        const spot = document.getElementById(player.position);
 
-        if (spot) {
+        if(player){
 
-            spot.textContent = player.number;
+            card.querySelector(".number").textContent =
+                player.number;
+
+            card.querySelector(".position").textContent =
+                position;
+
+
+            card.dataset.player =
+                player.name;
+
 
         }
 
     });
 
-    startTimer();
-
 }
 
-function startTimer() {
 
-    timer = setInterval(() => {
 
-        timeLeft--;
+// CHECK GUESS
 
-        document.getElementById("timer").textContent = timeLeft;
+function checkGuess(){
 
-        if (timeLeft <= 0) {
-
-            clearInterval(timer);
-
-            revealTeam();
-
-            document.getElementById("message").textContent =
-                "Time's Up!";
-
-        }
-
-    }, 1000);
-
-}
-
-function checkGuess() {
-
-    attempts++;
-
-    let guess = document
-        .getElementById("guessInput")
-        .value
+    let guess = guessInput.value
         .trim()
         .toLowerCase();
 
-    if (guess === currentTeam.team.toLowerCase()) {
 
-        score++;
-        correct++;
-        progress++;
+    let answer = currentTeam.name
+        .toLowerCase();
 
-        document.getElementById("score").textContent = score;
-        document.getElementById("progress").textContent =
-            progress + " / " + teams.length;
 
-        updateAccuracy();
+    if(guess === answer){
 
-        revealTeam();
+        correctGuess();
 
-        document.getElementById("message").textContent =
-            "✅ Correct!";
+    }
 
-        clearInterval(timer);
+    else{
 
-    } else {
+        alert("Wrong team!");
 
-        updateAccuracy();
+        streak = 0;
 
-        document.getElementById("message").textContent =
-            "❌ Incorrect";
+        updateScore();
 
     }
 
 }
 
-function updateAccuracy() {
 
-    let accuracy = Math.round((correct / attempts) * 100);
 
-    if (attempts === 0) accuracy = 0;
+// CORRECT ANSWER
 
-    document.getElementById("accuracy").textContent =
-        accuracy + "%";
+function correctGuess(){
+
+    score++;
+
+    streak++;
+
+    gamesPlayed++;
+
+
+    revealPlayers();
+
+    teamBox.textContent =
+        currentTeam.name;
+
+
+    updateScore();
 
 }
 
-function revealTeam() {
 
-    document.getElementById("teamBox").textContent =
-        currentTeam.team;
 
-    let html = "";
+// REVEAL PLAYERS
 
-    currentTeam.players.forEach(player => {
+function revealPlayers(){
 
-        html +=
-            "<div>" +
-            player.position +
-            " - #" +
-            player.number +
-            " " +
-            player.name +
-            "</div>";
+    cards.forEach(card=>{
+
+
+        card.querySelector(".number").textContent =
+            card.dataset.player || "?";
+
+
+        card.classList.add("reveal");
+
 
     });
 
-    document.getElementById("playerList").innerHTML = html;
+}
+
+
+
+// SKIP
+
+function skipGame(){
+
+    streak = 0;
+
+    gamesPlayed++;
+
+    revealPlayers();
+
+    teamBox.textContent =
+        currentTeam.name;
+
+
+    updateScore();
 
 }
 
-function hint() {
 
-    let words = currentTeam.team.split(" ");
 
-    let hint = "";
+// UPDATE SCORE
 
-    words.forEach(word => {
+function updateScore(){
 
-        hint += word[0] + "_ ";
+    scoreText.textContent =
+        "Score: " + score;
 
-    });
 
-    document.getElementById("message").textContent =
-        "Hint: " + hint;
+    streakText.textContent =
+        "Streak: " + streak;
 
 }
 
-document
-.getElementById("guessBtn")
-.addEventListener("click", checkGuess);
 
-document
-.getElementById("nextBtn")
-.addEventListener("click", loadTeam);
 
-document
-.getElementById("revealBtn")
-.addEventListener("click", function () {
+// GAME OVER
 
-    revealTeam();
+function gameOver(){
 
-    clearInterval(timer);
+    document.querySelector(".game-container")
+    .innerHTML = `
 
-});
+        <h1>GAME OVER</h1>
 
-document
-.getElementById("hintBtn")
-.addEventListener("click", hint);
+        <h2>
+        Final Score: ${score}
+        </h2>
 
-document
-.getElementById("guessInput")
-.addEventListener("keydown", function (e) {
+        <h2>
+        Best Streak: ${streak}
+        </h2>
 
-    if (e.key === "Enter") {
+        <button onclick="location.reload()">
+        Play Again
+        </button>
 
-        checkGuess();
+    `;
+
+}
+
+
+
+// NEXT BUTTON
+
+nextBtn.addEventListener(
+    "click",
+    startGame
+);
+
+
+submitBtn.addEventListener(
+    "click",
+    checkGuess
+);
+
+
+skipBtn.addEventListener(
+    "click",
+    skipGame
+);
+
+
+
+// ENTER KEY
+
+guessInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            checkGuess();
+
+        }
 
     }
+);
 
-});
 
-loadTeam();
+
+loadTeams();
