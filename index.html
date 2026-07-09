@@ -3,149 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the MLB Team</title>
-
+    <title>Guess The MLB Team</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="header">
-    <h1>GUESS THE TEAM</h1>
-    <p>By Their Jersey Numbers</p>
-</header>
-
-<main class="game">
+    <div class="banner">
+        <h1>GUESS THE TEAM</h1>
+        <p>BY THEIR JERSEY NUMBERS</p>
+    </div>
 
     <div class="field">
 
-        <!-- CF -->
-        <div class="player-card cf">
-            <span class="position">CF</span>
-            <div class="card">
-                <span id="cfNumber">--</span>
-            </div>
+        <div class="position cf">
+            <span class="label">CF</span>
+            <div class="card">25</div>
         </div>
 
-        <!-- LF -->
-        <div class="player-card lf">
-            <span class="position">LF</span>
-            <div class="card">
-                <span id="lfNumber">--</span>
-            </div>
+        <div class="position lf">
+            <span class="label">LF</span>
+            <div class="card">9</div>
         </div>
 
-        <!-- RF -->
-        <div class="player-card rf">
-            <span class="position">RF</span>
-            <div class="card">
-                <span id="rfNumber">--</span>
-            </div>
+        <div class="position rf">
+            <span class="label">RF</span>
+            <div class="card">15</div>
         </div>
 
-        <!-- SS -->
-        <div class="player-card ss">
-            <span class="position">SS</span>
-            <div class="card">
-                <span id="ssNumber">--</span>
-            </div>
+        <div class="position ss">
+            <span class="label">SS</span>
+            <div class="card">4</div>
         </div>
 
-        <!-- 2B -->
-        <div class="player-card second">
-            <span class="position">2B</span>
-            <div class="card">
-                <span id="secondNumber">--</span>
-            </div>
+        <div class="position second">
+            <span class="label">2B</span>
+            <div class="card">2</div>
         </div>
 
-        <!-- 3B -->
-        <div class="player-card third">
-            <span class="position">3B</span>
-            <div class="card">
-                <span id="thirdNumber">--</span>
-            </div>
+        <div class="position third">
+            <span class="label">3B</span>
+            <div class="card">22</div>
         </div>
 
-        <!-- 1B -->
-        <div class="player-card first">
-            <span class="position">1B</span>
-            <div class="card">
-                <span id="firstNumber">--</span>
-            </div>
+        <div class="position first">
+            <span class="label">1B</span>
+            <div class="card">23</div>
         </div>
 
-        <!-- SP -->
-        <div class="player-card ace">
-            <span class="position">ACE</span>
-            <div class="card">
-                <span id="aceNumber">--</span>
-            </div>
+        <div class="position ace">
+            <span class="label">ACE</span>
+            <div class="card">41</div>
         </div>
 
-        <!-- C -->
-        <div class="player-card catcher">
-            <span class="position">C</span>
-            <div class="card">
-                <span id="catcherNumber">--</span>
-            </div>
+        <div class="position catcher">
+            <span class="label">C</span>
+            <div class="card">27</div>
         </div>
 
-        <!-- DH -->
-        <div class="player-card dh">
-            <span class="position">DH</span>
-            <div class="card">
-                <span id="dhNumber">--</span>
-            </div>
+        <div class="position dh">
+            <span class="label">DH</span>
+            <div class="card">56</div>
         </div>
 
-        <!-- Team -->
-        <div class="player-card team">
-            <span class="position">TEAM</span>
-            <div class="card team-card">
-                <span id="teamReveal">?</span>
-            </div>
+        <div class="position team">
+            <span class="label">TEAM</span>
+            <div class="card question">?</div>
         </div>
 
     </div>
 
-</main>
-
-<section class="controls">
-
-    <input
-        id="guessInput"
-        type="text"
-        placeholder="Type team name..."
-        autocomplete="off">
-
-    <button id="submitBtn">
-        Submit
-    </button>
-
-    <button id="nextBtn">
-        Next Team
-    </button>
-
-</section>
-
-<section class="stats">
-
-    <div class="stat-box">
-        <h2 id="score">0 / 30</h2>
-        <p>Score</p>
+    <div class="guess-box">
+        <input type="text" id="teamInput" placeholder="Enter MLB team">
+        <button onclick="checkGuess()">Guess</button>
+        <p id="result"></p>
     </div>
 
-    <div class="stat-box">
-        <h2 id="streak">0</h2>
-        <p>Streak</p>
-    </div>
-
-</section>
-
-<p id="message"></p>
-
-<script src="teams.js"></script>
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
