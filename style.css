@@ -1,307 +1,131 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 body {
-    background: #06152d;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #001a66, #000814);
     color: white;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.game-container {
-    width: 95%;
-    max-width: 900px;
     text-align: center;
-    padding: 20px;
 }
 
-/* HEADER */
-
-h1 {
-    font-size: 3rem;
-    letter-spacing: 3px;
-    margin-bottom: 25px;
-    color: #ffffff;
+.banner {
+    background: linear-gradient(90deg, #001f66, #102b7a, #001f66);
+    padding: 20px 10px;
+    border-bottom: 2px solid white;
 }
 
-
-/* SCORE */
-
-.score-board {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 20px;
-    font-size: 1.3rem;
+.banner h1 {
+    margin: 0;
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
-
-/* BASEBALL FIELD */
+.banner p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
 
 .field {
     position: relative;
-    width: 520px;
-    height: 520px;
-    margin: auto;
-    background: #16723b;
-    border-radius: 20px;
-    border: 5px solid white;
-    overflow: hidden;
+    width: 100%;
+    max-width: 1000px;
+    height: 1000px;
+    margin: 20px auto;
 }
-
-
-/* DIAMOND */
-
-.diamond {
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    background: #c9a66b;
-    transform: rotate(45deg);
-    top: 120px;
-    left: 120px;
-    border: 4px solid white;
-}
-
-
-/* POSITION CARDS */
-
-.player-card {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    background: #111827;
-    border: 3px solid white;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: .3s;
-}
-
-
-.player-card:hover {
-    transform: scale(1.08);
-    background: #1e3a8a;
-}
-
-
-.number {
-    font-size: 2.3rem;
-    font-weight: bold;
-}
-
 
 .position {
-    font-size: .9rem;
-    opacity: .8;
+    position: absolute;
+    text-align: center;
 }
 
-
-/* FIELD POSITIONS */
-
-.LF {
-    top: 30px;
-    left: 40px;
+.label {
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 8px;
 }
 
-.CF {
-    top: 15px;
-    left: 215px;
-}
-
-.RF {
-    top: 30px;
-    right: 40px;
-}
-
-.3B {
-    bottom: 90px;
-    left: 80px;
-}
-
-.SS {
-    bottom: 150px;
-    left: 170px;
-}
-
-.2B {
-    bottom: 150px;
-    right: 170px;
-}
-
-.1B {
-    bottom: 90px;
-    right: 80px;
-}
-
-.C {
-    bottom: 20px;
-    left: 215px;
-}
-
-.DH {
-    bottom: 90px;
-    left: 215px;
-}
-
-.ACE {
-    top: 210px;
-    left: 215px;
-}
-
-
-
-/* TEAM BOX */
-
-.team-box {
-    margin: 25px auto;
-    width: 250px;
-    height: 90px;
-    background: #111827;
-    border: 3px solid white;
-    border-radius: 15px;
+.card {
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, #666, #111);
+    border: 4px solid white;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 2.5rem;
-    font-weight: bold;
+    justify-content: center;
+    font-size: 64px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 0 25px rgba(255,255,255,0.4);
 }
 
-
-/* INPUT AREA */
-
-.controls {
-    margin-top: 20px;
+.question {
+    font-size: 90px;
 }
 
+.cf { top: 20px; left: 50%; transform: translateX(-50%); }
+.lf { top: 140px; left: 60px; }
+.rf { top: 140px; right: 60px; }
 
-input {
-    width: 250px;
+.ss { top: 380px; left: 280px; }
+.second { top: 380px; right: 280px; }
+
+.third { top: 600px; left: 80px; }
+.first { top: 600px; right: 80px; }
+
+.ace { top: 620px; left: 50%; transform: translateX(-50%); }
+
+.catcher { bottom: 40px; left: 50%; transform: translateX(-50%); }
+
+.dh { bottom: 40px; left: 80px; }
+
+.team { bottom: 40px; right: 80px; }
+
+.guess-box {
+    margin-bottom: 40px;
+}
+
+.guess-box input {
+    width: 260px;
     padding: 12px;
-    font-size: 1.1rem;
-    border-radius: 8px;
+    font-size: 18px;
+    border-radius: 6px;
     border: none;
 }
 
-
-button {
-    padding: 12px 25px;
-    margin: 8px;
-    font-size: 1.1rem;
+.guess-box button {
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    background: #ffcc00;
+    color: black;
     font-weight: bold;
-    border-radius: 8px;
-    border: none;
     cursor: pointer;
-    background: white;
-    color: #06152d;
-    transition: .2s;
 }
 
-
-button:hover {
-    transform: scale(1.05);
-    background: #38bdf8;
+.guess-box button:hover {
+    background: #ffd633;
 }
 
-
-/* REVEAL ANIMATION */
-
-.reveal {
-    animation: reveal .5s ease;
+#result {
+    margin-top: 15px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
-
-@keyframes reveal {
-
-    from {
-        transform: scale(.5);
-        opacity: 0;
+@media (max-width: 768px) {
+    .banner h1 {
+        font-size: 42px;
     }
 
-    to {
-        transform: scale(1);
-        opacity: 1;
+    .banner p {
+        font-size: 18px;
     }
-
-}
-
-
-/* GAME OVER */
-
-.game-over {
-    font-size: 2rem;
-    margin-top: 20px;
-}
-
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    h1 {
-        font-size: 2rem;
-    }
-
 
     .field {
-        width: 330px;
-        height: 330px;
+        height: 900px;
+        transform: scale(0.75);
+        transform-origin: top center;
     }
-
-
-    .diamond {
-        width: 170px;
-        height: 170px;
-        top:80px;
-        left:80px;
-    }
-
-
-    .player-card {
-        width:60px;
-        height:60px;
-    }
-
-
-    .number {
-        font-size:1.5rem;
-    }
-
-
-    .position {
-        font-size:.65rem;
-    }
-
-
-    .CF,
-    .C,
-    .DH,
-    .ACE {
-        left:135px;
-    }
-
-
-    .SS {
-        left:100px;
-    }
-
-
-    .2B {
-        right:100px;
-    }
-
-
-    input {
-        width:90%;
-    }
-
 }
